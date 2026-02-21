@@ -42,21 +42,29 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="auth-container">
-            <div className="auth-card">
-                <div className="auth-header">
-                    <div className="auth-logo">✓</div>
-                    <h1>{isSignUp ? "Create Account" : "Welcome Back"}</h1>
-                    <p className="auth-subtitle">
+        <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+            <div className="bg-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-10 w-full max-w-md shadow-2xl">
+                {/* Header */}
+                <div className="text-center mb-8">
+                    <div className="w-14 h-14 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center text-2xl text-white font-bold mx-auto mb-4">
+                        ✓
+                    </div>
+                    <h1 className="text-2xl font-bold text-white mb-1">
+                        {isSignUp ? "Create Account" : "Welcome Back"}
+                    </h1>
+                    <p className="text-slate-400 text-sm">
                         {isSignUp
                             ? "Sign up to start managing your todos"
                             : "Sign in to your todo list"}
                     </p>
                 </div>
 
-                <form onSubmit={handleSubmit} className="auth-form">
-                    <div className="input-group">
-                        <label htmlFor="email">Email</label>
+                {/* Form */}
+                <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+                    <div className="flex flex-col gap-1.5">
+                        <label htmlFor="email" className="text-sm font-medium text-slate-400">
+                            Email
+                        </label>
                         <input
                             id="email"
                             type="email"
@@ -64,11 +72,14 @@ export default function LoginPage() {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
+                            className="bg-slate-700/50 border border-slate-600 rounded-xl px-4 py-3 text-white text-sm placeholder-slate-500 outline-none focus:border-indigo-500 transition-colors"
                         />
                     </div>
 
-                    <div className="input-group">
-                        <label htmlFor="password">Password</label>
+                    <div className="flex flex-col gap-1.5">
+                        <label htmlFor="password" className="text-sm font-medium text-slate-400">
+                            Password
+                        </label>
                         <input
                             id="password"
                             type="password"
@@ -77,13 +88,26 @@ export default function LoginPage() {
                             onChange={(e) => setPassword(e.target.value)}
                             required
                             minLength={6}
+                            className="bg-slate-700/50 border border-slate-600 rounded-xl px-4 py-3 text-white text-sm placeholder-slate-500 outline-none focus:border-indigo-500 transition-colors"
                         />
                     </div>
 
-                    {error && <div className="auth-error">{error}</div>}
-                    {message && <div className="auth-success">{message}</div>}
+                    {error && (
+                        <div className="bg-red-500/10 border border-red-500/30 text-red-400 px-3.5 py-2.5 rounded-lg text-sm">
+                            {error}
+                        </div>
+                    )}
+                    {message && (
+                        <div className="bg-green-500/10 border border-green-500/30 text-green-400 px-3.5 py-2.5 rounded-lg text-sm">
+                            {message}
+                        </div>
+                    )}
 
-                    <button type="submit" className="auth-button" disabled={loading}>
+                    <button
+                        type="submit"
+                        className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-xl py-3 text-sm font-semibold cursor-pointer hover:opacity-90 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed transition-all mt-1"
+                        disabled={loading}
+                    >
                         {loading
                             ? "Loading..."
                             : isSignUp
@@ -92,9 +116,12 @@ export default function LoginPage() {
                     </button>
                 </form>
 
-                <div className="auth-switch">
+                {/* Switch */}
+                <div className="text-center mt-6 text-sm text-slate-400">
                     <span>
-                        {isSignUp ? "Already have an account?" : "Don't have an account?"}
+                        {isSignUp
+                            ? "Already have an account?"
+                            : "Don't have an account?"}
                     </span>
                     <button
                         onClick={() => {
@@ -102,7 +129,7 @@ export default function LoginPage() {
                             setError("");
                             setMessage("");
                         }}
-                        className="auth-switch-btn"
+                        className="bg-transparent border-none text-indigo-400 hover:underline cursor-pointer font-semibold ml-1 text-sm"
                     >
                         {isSignUp ? "Sign In" : "Sign Up"}
                     </button>
